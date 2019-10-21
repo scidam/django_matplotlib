@@ -2,6 +2,9 @@
 Django Matplotlib
 =================
 
+.. image:: https://travis-ci.com/scidam/django_matplotlib.svg?branch=master
+    :target: https://travis-ci.org/scidam/django_matplotlib
+
 Django_matplotlib is a reusable 
 Django app for embedding matplotlib figures 
 into Django driven Web-sites. It can be easily integrated with Django
@@ -30,7 +33,7 @@ Quick start
         ...
     ]
 
-3. Use MatplotlibField in your `models.py`, e.g.
+3. Use MatplotlibField in your `models.py`, e.g.::
 
     from django.db import models
     from django_matplotlib.fields import MatplotlibFigureField
@@ -38,7 +41,7 @@ Quick start
     class MyModelWithFigure(models.Model):
         # ... other fields 
         # figures.py should be in the same directory where models.py is placed.
-        # ./example/fig/figures.py
+        # see  ./django_matplotlib/figures.py for example.
         fig = MatplotlibFigureField(figure='plot', verbose_name='figure',
                                     silent=True)
         # ... other fields 
