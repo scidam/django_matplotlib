@@ -1,0 +1,6 @@
+{% if figure.error %}<span class="error">{{ figure.error }}</span>{% else %}
+{% if figure.type == 'string' and figure.format == 'svg' %}
+<img src="data:image/svg+xml;charset=UTF-8,{{ figure.source }}" {% if figure.width %} width="{{ figure.width }}" {% endif %} {% if figure.height %} height="{{ figure.height }}" {% endif %} />
+{% elif figure.type == 'string' and figure.format == 'png' %}
+<img src="data:image/png;base64,{{ figure.source }}" {% if figure.width %} width="{{ figure.width }}" {% endif %} {% if figure.height %} height="{{ figure.height }}" {% endif %} />
+{% elif figure.type == 'file' %}<img src="{{ figure.url }}" {% if figure.width %} width="{{ figure.width }}" {% endif %} {% if figure.height %} height="{{ figure.height }}" {% endif %} />{% endif %}{% endif %}
