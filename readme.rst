@@ -3,7 +3,7 @@ Django Matplotlib
 =================
 
 .. image:: https://travis-ci.com/scidam/django_matplotlib.svg?branch=master
-    :target: https://travis-ci.org/scidam/django_matplotlib
+    :target: https://travis-ci.com/scidam/django_matplotlib
 
 Django_matplotlib is a reusable 
 Django app for embedding matplotlib figures 
