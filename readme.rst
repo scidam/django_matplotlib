@@ -42,7 +42,7 @@ Quick start
         # ... other fields 
         # figures.py should be in the same directory where models.py is placed.
         # see  ./django_matplotlib/figures.py for example.
-        fig = MatplotlibFigureField(figure='plot', verbose_name='figure',
+        fig = MatplotlibFigureField(figure='test_figure', verbose_name='figure',
                                     silent=True)
         # ... other fields 
 
