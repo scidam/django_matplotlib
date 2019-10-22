@@ -44,7 +44,7 @@ def image_plot():
 
 
 def plot_with_args(x, y):
-    """ Pass arguments to plotting function """
+    """ Pass arguments to plot function """
 
     fig, ax = plt.subplots()
     plt.plot(x, y)
@@ -52,7 +52,13 @@ def plot_with_args(x, y):
 
 
 def countour_plot(custom_title):
-    """ Contour plot demo """
+    """ Contour plot demo 
+    
+    Source:
+
+        https://matplotlib.org/3.1.1/gallery/images_contours_and_fields/contour_demo.html
+    
+    """
 
     delta = 0.025
     x = np.arange(-3.0, 3.0, delta)
