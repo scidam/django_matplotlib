@@ -1,13 +1,3 @@
-/*
- * Filename: /home/dmitry/workspace/django-matplotlib/README.rst
- * Path: /home/dmitry/workspace/django-matplotlib
- * Created Date: Wednesday, October 23rd 2019, 5:56:52 pm
- * Author: Dmitry Kislov
- * 
- * Copyright (c) 2019 Your Company
- */
-
-
 =================
 Django Matplotlib
 =================
