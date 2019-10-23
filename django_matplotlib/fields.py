@@ -4,7 +4,7 @@ import importlib
 import inspect
 import string
 import random
-import base64
+from base64 import b64encode as b64en
 import hashlib
 import atexit
 from io import BytesIO
@@ -31,6 +31,7 @@ for name in dir(djmpl_conf):
     if not name.startswith('_') and name.isupper():
         setattr(defaults, name,
                 getattr(settings, name, getattr(djmpl_conf, name)))
+
 
 # register with atexit module
 def cleanup_file(path):
@@ -80,7 +81,6 @@ class FigureObject:
     def width(self, value):
         self._width = value
 
-
     @property
     def height(self):
         return self._prepare_size(self._height)
@@ -96,11 +96,90 @@ class MatplotlibFieldBase(models.Field):
         self.concrete = False
         cls._meta.add_field(self, private=True)
         setattr(cls, name, self)
+    
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        # Prevent field from being detected as changed
+        # when makemigrations command is ran.
+        return name, path, tuple(), dict()
 
 
 class MatplotlibFigureField(MatplotlibFieldBase):
+    """Matplotlib figure field for Django.
+
+    Figures are generated in either 'png' (default) or 'svg' formats.
+    It is possible to insert generated figures to html documents 
+    as inline objects (e.g. using `<img src="...">`) or save them to files.
+
+    If files are saved on disk, they are automatically cleaned up when the
+    program exits using :mod:`atexit` module.
+
+    `MatplotlibFigureField` is compatible with standard Django Admin app. 
+
+    Figures automatically re-render (at any subsequent request) 
+    when they code is changed. It uses :func:`hashlib.md5` function to
+    catch changes in figure's code. If the figure wasn't changed, 
+    it is stored in memory and underlying figure view function (which returns 
+    :class:`matplotlib.Figure` instance) isn't called for each subsequent
+    request.
+    
+    .. note::
+
+       Model fields created using this class aren't stored in database and no
+       additional columns for such fields are created.
+
+    """
 
     def __init__(self, *args, **kwargs):
+        """MatplotlibFigureField initializer.
+
+        This field can take any of standard Django's field attributes,
+        but forces `required` argument to `False` for corresponding form.
+
+        :param figure: The name of callable within `figures.py` which should 
+                       return matplotlib.Figure object.
+        :type figure: str.
+        :param silent: Be silent on exceptions or not (default is `False`). 
+        :type figure: bool.
+        :param plt_args: Positional arguments passed to figure's view 
+                         (the function defined by the `figure` parameter).
+        :type plt_args: tuple.
+        :param plt_kwargs: Keyword arguments passed to figure's view 
+                           (the function defined by the `figure` parameter).        
+        :type plt_kwargs: dict.
+        :param fig_width: Output figure width in pixels. Default is 320.
+        :type fig_width: int.
+        :param fig_height: Output figure height in pixels. Default is 240.
+        :type fig_height: int.
+        :param output_type: Output type of the figure. Either 'file' or
+                            'string'. Default is 'string' (used for inline
+                            figure object embedding to html pages).
+        :type output_type: str.
+        :param output_format: Output format of the figure. Either 'svg' or
+                              'png' (default).
+        :type output_format: str.
+        :param cleanup: Defines whether created files be cleaned up at program
+                        exit or not. Default is True (created files will be
+                        erased at exit). Has sense only if `output_type='file'`.
+        :type cleanup: bool.
+
+
+        .. note::
+
+            Default parameters for MatplotlibFigureField are defined in the file
+            conf.py.
+
+
+        .. note:: 
+
+            If `output_type='file'`,  MEDIA_ROOT should be defined in your
+            project settings. In this case, the field will 
+            save temporary files to folder `MEDIA_ROOT/DJANGO_MATPLOTLIB_TMP`.
+            Default value of `DJANGO_MATPLOTLIB_TMP` is defined in `conf.py` and
+            can be overridden in your project settings.
+
+        """
+
         defs = defaults.DJANGO_MATPLOTLIB_FIG_DEFAULTS
         self.figure = kwargs.pop('figure', '')
         self.silent = kwargs.pop('silent', defs.get('silent'))
@@ -108,8 +187,7 @@ class MatplotlibFigureField(MatplotlibFieldBase):
         self.plt_kwargs = kwargs.pop('plt_kwargs', dict())
         self.fig_width = kwargs.pop('fig_width', defs.get('fig_width'))
         self.fig_height = kwargs.pop('fig_height', defs.get('fig_height'))
-        self.output_type = kwargs.pop('output_type',
-                                      defs.get('output_type'))
+        self.output_type = kwargs.pop('output_type', defs.get('output_type'))
         self.output_format = kwargs.pop('output_format',
                                         defs.get('output_format'))
         self.fig_cleanup = kwargs.pop('cleanup', defs.get('cleanup'))
@@ -199,7 +277,7 @@ class MatplotlibFigureField(MatplotlibFieldBase):
                     buffer.seek(0)
                     fig_object.path = ''
                     if self.output_format == 'png':
-                        fig_object.source = base64.b64encode(buffer.read()).decode('utf-8')  # noqa
+                        fig_object.source = b64en(buffer.read()).decode('utf-8')
                     else:
                         fig_object.source =buffer.read().decode('utf-8')
                     plt.close(fig)
