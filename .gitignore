@@ -1,7 +1,10 @@
 *.pyc
 *.pyo
 __pycache__
-example
 .tox
 .vscode
 db.sqlite3
+docs/build
+.python-version
+docs/Makefile
+docs/make.bat
