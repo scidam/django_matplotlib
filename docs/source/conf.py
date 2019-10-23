@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.abspath('.'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'example.settings'
 django.setup()
 
+master_doc = 'index'
 # -- Project information -----------------------------------------------------
 
 project = 'Django Matplotlib'
