@@ -107,9 +107,10 @@ class MatplotlibFieldBase(models.Field):
 class MatplotlibFigureField(MatplotlibFieldBase):
     """Matplotlib figure field for Django.
 
-    Figures are generated in either 'png' (default) or 'svg' formats.
-    It is possible to insert generated figures to html documents 
-    as inline objects (e.g. using `<img src="...">`) or save them to files.
+    Figures are generated in 'png' (default) or 'svg' formats.
+    They can be inserted to html documents as inline objects 
+    (e.g. using `<img src="data:image/png;base64,...">`) or saved to 
+    temporary files.
 
     If files are saved on disk, they are automatically cleaned up when the
     program exits using :mod:`atexit` module.
@@ -118,15 +119,15 @@ class MatplotlibFigureField(MatplotlibFieldBase):
 
     Figures automatically re-render (at any subsequent request) 
     when they code is changed. It uses :func:`hashlib.md5` function to
-    catch changes in figure's code. If the figure wasn't changed, 
-    it is stored in memory and underlying figure view function (which returns 
-    :class:`matplotlib.Figure` instance) isn't called for each subsequent
+    check changes in figure's code. If the figure wasn't changed, 
+    it would be stored in memory and underlying figure view function (which returns 
+    :class:`matplotlib.Figure` instance) not be called for each subsequent
     request.
     
     .. note::
 
-       Model fields created using this class aren't stored in database and no
-       additional columns for such fields are created.
+       Model fields created using this class aren't stored in the database 
+       and no additional columns for such fields are created.
 
     """
 
