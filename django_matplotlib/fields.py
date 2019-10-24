@@ -174,10 +174,10 @@ class MatplotlibFigureField(MatplotlibFieldBase):
         .. note:: 
 
             If `output_type='file'`,  MEDIA_ROOT should be defined in your
-            project settings. In this case, the field will 
-            save temporary files to folder `MEDIA_ROOT/DJANGO_MATPLOTLIB_TMP`.
+            project settings file. In this case, the field will 
+            save temporary files to the folder `MEDIA_ROOT/DJANGO_MATPLOTLIB_TMP`.
             Default value of `DJANGO_MATPLOTLIB_TMP` is defined in `conf.py` and
-            can be overridden in your project settings.
+            can be overridden in your project settings file.
 
         """
 
