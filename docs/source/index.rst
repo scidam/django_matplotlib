@@ -13,9 +13,9 @@ Welcome to Django Matplotlib's documentation!
 Matplotlib is a widely used package for generating
 publication ready figures for science and technology.
 
-This Django application aims at integration Matplotlib and Django 
-to simplify process of embedding matplotlib figures to Django driven
-web sites, including Django admin app.
+This Django application aims at integration Matplotlib and Django
+to simplify process of embedding figures to Django driven
+web sites including Django admin app.
 
 Quick start
 ===========
@@ -23,7 +23,8 @@ Quick start
 Requirements
 ------------
 
-You need to install matplotlib package to use Django maptlotlib.
+Matplotlib (any version which supports `Figure.savefig` and able to 
+save figures in 'svg' and/or 'png' formats)
 
 Django matplotlib is tested with Django 1.11+ |--| 2.2 and Python 3.5+, <3.8.
 
@@ -32,14 +33,13 @@ Installation
 
 Install Django matplotlib::
 
-    pip install django_matplotlib
+    pip install django-matplotlib
 
 Add `django_matplotlib` to INSTALLED_APPS::
 
     INSTALLED_APPS = [
                 ...
                 'django_matplotlib',
-                # it doens't matter where it is placed
                 ...
     ]
 
@@ -54,7 +54,7 @@ Minimal configuration
     # -----------
 
     from django.db import models
-    from django_matplotlib import 
+    from django_matplotlib import MatplotlibFigureField
 
     class MyModel(models.Model):
         figure = MatplotlibFigureField(figure='my_figure')
@@ -80,8 +80,8 @@ Minimal configuration
     admin.site.register(MyModel)
 
 
-If everything is configured in a right way,
-you should get something like this in your admin:
+If everything is configured well,
+you'll get something like this (in the admin):
 
 
 .. figure::  ./images/sample_fig.png
@@ -90,12 +90,12 @@ you should get something like this in your admin:
 
 
 Detailed information about field's configuration parameters
-is available :doc:`Здесь<main>`.
+is available :doc:`here<main>`.
 
 
 .. seealso::
 
-    `Example project <http://github.com/scidam/django_matplotlib/example>`_
+    `Example project <https://github.com/scidam/django_matplotlib/tree/master/example>`_
 
 
 Contents

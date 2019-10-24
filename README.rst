@@ -5,12 +5,12 @@ Django Matplotlib
 .. image:: https://travis-ci.com/scidam/django_matplotlib.svg?branch=master
     :target: https://travis-ci.com/scidam/django_matplotlib
 
-Django_matplotlib is a reusable 
-Django app for embedding matplotlib figures 
+Django_matplotlib is a reusable
+Django app for embedding matplotlib figures
 into Django driven websites. It can be easily integrated with Django
 admin app and used in templates via forms.
 
-Detailed documentation is in the "docs" section.
+Documentation: http://django-matplotlib.readthedocs.org/
 
 Requirements
 ------------
@@ -25,7 +25,7 @@ Quick start
    
 .. code-block::
 
-   git clone https://github.com/scidam/django_matplotlib
+   pip install django-matplotlib
 
 2. Add "django_matplotlib" to your INSTALLED_APPS setting like this:
 
@@ -53,7 +53,7 @@ Quick start
         # ... other fields 
 
 
-4. Make and apply migrations.
+4. Generate and apply migrations.
 
 
 .. note::
@@ -61,12 +61,6 @@ Quick start
     It is assumed that you have Django installed already. Additionally,
     you will need to install `matplotlib` to use `MatplotlibFigureField`
     in your models.
-
-
-Docs
-----
-
-Coming soon ...
 
 
 Author
