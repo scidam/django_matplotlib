@@ -139,30 +139,30 @@ class MatplotlibFigureField(MatplotlibFieldBase):
 
         :param figure: The name of callable within `figures.py` which should 
                        return matplotlib.Figure object.
-        :type figure: str.
+        :type figure: str
         :param silent: Be silent on exceptions or not (default is `False`). 
-        :type figure: bool.
+        :type figure: bool
         :param plt_args: Positional arguments passed to figure's view 
                          (the function defined by the `figure` parameter).
-        :type plt_args: tuple.
+        :type plt_args: tuple
         :param plt_kwargs: Keyword arguments passed to figure's view 
                            (the function defined by the `figure` parameter).        
-        :type plt_kwargs: dict.
+        :type plt_kwargs: dict
         :param fig_width: Output figure width in pixels. Default is 320.
-        :type fig_width: int.
+        :type fig_width: int
         :param fig_height: Output figure height in pixels. Default is 240.
-        :type fig_height: int.
+        :type fig_height: int
         :param output_type: Output type of the figure. Either 'file' or
                             'string'. Default is 'string' (used for inline
                             figure object embedding to html pages).
-        :type output_type: str.
+        :type output_type: str
         :param output_format: Output format of the figure. Either 'svg' or
                               'png' (default).
-        :type output_format: str.
+        :type output_format: str
         :param cleanup: Defines whether created files be cleaned up at program
                         exit or not. Default is True (created files will be
                         erased at exit). Has sense only if `output_type='file'`.
-        :type cleanup: bool.
+        :type cleanup: bool
 
 
         .. note::
