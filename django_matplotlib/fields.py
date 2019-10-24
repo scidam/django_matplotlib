@@ -193,6 +193,7 @@ class MatplotlibFigureField(MatplotlibFieldBase):
                                         defs.get('output_format'))
         self.fig_cleanup = kwargs.pop('cleanup', defs.get('cleanup'))
         self._figure_module = None
+        kwargs['null'] = True
         super().__init__(*args,  **kwargs)
 
     def _get_figure_hash(self, func):
